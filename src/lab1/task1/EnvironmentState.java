@@ -1,9 +1,7 @@
-package lab1;
+package lab1.task1;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import lab1.Environment.LocationState;
 
 public class EnvironmentState {
 	private Map<String, Environment.LocationState> state = new HashMap<String, Environment.LocationState>();
@@ -22,11 +20,11 @@ public class EnvironmentState {
 		return this.agentLocation;
 	}
 
-	public LocationState getLocationState(String location) {
+	public Environment.LocationState getLocationState(String location) {
 		return this.state.get(location);
 	}
 
-	public void setLocationState(String location, LocationState locationState) {
+	public void setLocationState(String location, Environment.LocationState locationState) {
 		this.state.put(location, locationState);
 	}
 

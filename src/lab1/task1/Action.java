@@ -1,4 +1,4 @@
-package lab1;
+package lab1.task1;
 
 /**
  * Class này đại diện cho các hành động của Agent (DynamicAction và NoOpAction)

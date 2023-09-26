@@ -1,4 +1,4 @@
-package lab1;
+package lab1.task1;
 
 /**
  * Class này là Agent gồm một lõi chương trình (AgentProgram)

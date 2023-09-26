@@ -1,4 +1,4 @@
-package lab1;
+package lab1.task1;
 
 /**
  * Lõi chương trình cho Agent,

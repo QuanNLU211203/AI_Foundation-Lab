@@ -1,4 +1,4 @@
-package lab1;
+package lab1.task1;
 
 public class Environment {
 	public static final Action MOVE_LEFT = new DynamicAction("LEFT");
