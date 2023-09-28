@@ -113,4 +113,8 @@ public class Environment {
 			step();
 		}
 	}
+
+	public boolean isDone(){
+		return isDone;
+	}
 }
