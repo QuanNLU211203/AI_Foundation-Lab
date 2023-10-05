@@ -8,22 +8,29 @@ import java.util.Set;
 public class BFSTreeSearch implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
-        Queue<Node> frontier = new LinkedList<Node>();
-        frontier.add(root);
+        try{
+            Queue<Node> frontier = new LinkedList<Node>();
+            frontier.add(root);
 
-        while(!frontier.isEmpty()){
-            Node node = frontier.poll();
-            if(node.getLabel().equals(goal)){
-                return node;
+            while(!frontier.isEmpty()){
+                Node node = frontier.poll();
+                if(node.getLabel().equals(goal)){
+                    return node;
+                }
+
+                for(Node child : node.getChildrenNodes()){
+                    Node clone = (Node) child.clone();
+                    clone.setParent(node);
+                    frontier.add(clone);
+                }
             }
 
-            for(Node child : node.getChildrenNodes()){
-                frontier.add(child);
-                child.setParent(node);
-            }
+            return null;
         }
-
-        return null;
+        catch (CloneNotSupportedException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

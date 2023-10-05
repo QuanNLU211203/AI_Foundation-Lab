@@ -3,7 +3,7 @@ package lab2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node implements Comparable<Node> {
+public class Node implements Comparable<Node>, Cloneable {
 	private String label;
 	private Node parent; // for printing the path from the start node to goal node
 	private double pathCost;// from the root node to this node
@@ -101,5 +101,16 @@ public class Node implements Comparable<Node> {
 	@Override
 	public int compareTo(Node o) {
 		return this.label.compareTo(o.label);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Node newNode = new Node(this.label);
+		newNode.setParent(this.parent);
+		newNode.setDepth(this.depth);
+		newNode.setPathCost(this.pathCost);
+		newNode.children = this.children;
+
+		return newNode;
 	}
 }

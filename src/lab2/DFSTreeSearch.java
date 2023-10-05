@@ -8,24 +8,30 @@ import java.util.Stack;
 public class DFSTreeSearch implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
-        Stack<Node> frontier = new Stack<Node>();
-        frontier.add(root);
+        try{
+            Stack<Node> frontier = new Stack<Node>();
+            frontier.add(root);
 
-        while(!frontier.isEmpty()){
-            Node node = frontier.pop();
-            if(node.getLabel().equals(goal)){
-                return node;
+            while(!frontier.isEmpty()){
+                Node node = frontier.pop();
+                if(node.getLabel().equals(goal)){
+                    return node;
+                }
+
+                List<Node> childs = node.getChildrenNodes();
+                for(int i = childs.size() - 1; i >= 0; i--){
+                    Node child = (Node) childs.get(i).clone();
+                    child.setParent(node);
+                    frontier.add(child);
+                }
             }
 
-            List<Node> childs = node.getChildrenNodes();
-            for(int i = childs.size() - 1; i >= 0; i--){
-                Node child = childs.get(i);
-                child.setParent(node);
-                frontier.add(child);
-            }
+            return null;
         }
-
-        return null;
+        catch (CloneNotSupportedException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
