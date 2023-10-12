@@ -7,11 +7,11 @@ public class Test {
         ISearchAlgo dfsGraphSearch = new DepthFirstSearchAlgo();
         ISearchAlgo dfsTreeSearch = new DFSTreeSearch();
         ISearchAlgo uniformCostSearch = new UniformCostSearchAlgo();
-        ISearchAlgo depthLimit5 = new DepthLimitedSearch(5);
+        ISearchAlgo depthLimit5 = new DepthLimitedSearch(3);
 
         Node nodeS = createTestSet1();
-        Node result = dfsTreeSearch.execute(nodeS, "G");
-        System.out.println(NodeUtils.printPath(result));
+        Node result = bfsTreeSearch.execute(nodeS, "G");
+        System.out.println(result);
         System.out.println(result.getPathCost());
     }
 
