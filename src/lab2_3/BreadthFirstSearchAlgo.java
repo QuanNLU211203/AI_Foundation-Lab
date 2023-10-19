@@ -1,16 +1,15 @@
-package lab2;
+package lab2_3;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-public class UniformCostSearchAlgo implements ISearchAlgo{
+public class BreadthFirstSearchAlgo implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
-        PriorityQueue<Node> frontier = new PriorityQueue<Node>();
-        root.setPathCost(0);
+        Queue<Node> frontier = new LinkedList<Node>();
+        Set<Node> explored = new HashSet<Node>();
         frontier.add(root);
 
         while(!frontier.isEmpty()){
@@ -19,15 +18,12 @@ public class UniformCostSearchAlgo implements ISearchAlgo{
                 return node;
             }
 
-            for(Edge childEdge : node.getChildren()){
-                Node childNode = childEdge.getEnd();
-                double newCost = node.getPathCost() + childEdge.getWeight();
-                if(frontier.contains(childNode) && childNode.getPathCost() > newCost){
-                    frontier.remove(childNode);
+            for(Node child : node.getChildrenNodes()){
+                if(!explored.contains(child)){
+                    child.setParent(node);
+                    explored.add(child);
+                    frontier.add(child);
                 }
-                childNode.setParent(node);
-                childNode.setPathCost(newCost);
-                frontier.add(childNode);
             }
         }
 

@@ -1,8 +1,6 @@
-package lab2;
+package lab2_3;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 
 public class DFSTreeSearch implements ISearchAlgo{

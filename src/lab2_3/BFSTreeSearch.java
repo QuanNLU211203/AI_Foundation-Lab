@@ -1,9 +1,7 @@
-package lab2;
+package lab2_3;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
 
 public class BFSTreeSearch implements ISearchAlgo{
     @Override
