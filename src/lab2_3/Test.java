@@ -9,7 +9,7 @@ public class Test extends TestCase {
     public void testDFSGraphSearch(){
         ISearchAlgo dfsGraphSearch = new DepthFirstSearchAlgo();
 
-        Node nodeS = createTestSet2(); //Có thể thay bằng createTestSet2()
+        Node nodeS = createTestSet2(); //Có thể thay bằng createTestSet1()
         Node result = dfsGraphSearch.execute(nodeS, "G");
         System.out.println(NodeUtils.printPath(result));
 
@@ -23,7 +23,7 @@ public class Test extends TestCase {
     public void testBFSGraphSearch(){
         ISearchAlgo bfsGraphSearch = new BreadthFirstSearchAlgo();
 
-        Node nodeS = createTestSet1(); //Có thể thay bằng createTestSet2()
+        Node nodeS = createTestSet2(); //Có thể thay bằng createTestSet1()
         Node result = bfsGraphSearch.execute(nodeS, "G");
         System.out.println(NodeUtils.printPath(result));
 
@@ -65,14 +65,14 @@ public class Test extends TestCase {
     public void testUninformCostSearch(){
         ISearchAlgo uninformCostSearch = new UninformCostSearchAlgo();
 
-        Node nodeS = createTestSet1(); //Có thể thay bằng createTestSet2()
+        Node nodeS = createTestSet2(); //Có thể thay bằng createTestSet1()
         Node result = uninformCostSearch.execute(nodeS, "G");
         System.out.println(NodeUtils.printPath(result));
         System.out.println(result.getPathCost());
 
         result = uninformCostSearch.execute(nodeS, "A", "G");
         System.out.println(NodeUtils.printPath(result));
-        System.out.println(result.getPathCost());
+        System.out.println((result != null) ? (result.getPathCost()):(0));
 
         result = uninformCostSearch.execute(nodeS, "E", "H");
         System.out.println(NodeUtils.printPath(result));
@@ -121,7 +121,7 @@ public class Test extends TestCase {
         nodeStart.addEdge(nodeD, 3); nodeStart.addEdge(nodeE, 9); nodeStart.addEdge(nodeP, 1);
         nodeB.addEdge(nodeA, 2);
         nodeC.addEdge(nodeA, 2);
-        nodeD.addEdge(nodeB, 1); nodeD.addEdge(nodeC, 8); nodeD.addEdge(nodeE, 3);
+        nodeD.addEdge(nodeB, 1); nodeD.addEdge(nodeC, 8); nodeD.addEdge(nodeE, 2);
         nodeE.addEdge(nodeH, 1); nodeE.addEdge(nodeR, 9);
         nodeF.addEdge(nodeC, 5); nodeF.addEdge(nodeGoal, 5);
         nodeH.addEdge(nodeP, 4); nodeH.addEdge(nodeQ, 4);

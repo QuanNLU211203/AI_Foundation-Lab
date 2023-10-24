@@ -1,11 +1,24 @@
 package lab2_3;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class UninformCostSearchAlgo implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
-        PriorityQueue<Node> frontier = new PriorityQueue<Node>();
+        Comparator<Node> comparator = new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                double result = o1.getPathCost() - o2.getPathCost();
+                if(result == 0){
+                    return o1.compareTo(o2);
+                }
+                else{
+                    return (result > 0) ? (1):(-1);
+                }
+            }
+        };
+        PriorityQueue<Node> frontier = new PriorityQueue<Node>(comparator);
         root.setPathCost(0);
         frontier.add(root);
 
@@ -21,9 +34,11 @@ public class UninformCostSearchAlgo implements ISearchAlgo{
                 if(frontier.contains(childNode) && childNode.getPathCost() > newCost){
                     frontier.remove(childNode);
                 }
-                childNode.setParent(node);
-                childNode.setPathCost(newCost);
-                frontier.add(childNode);
+                if (!frontier.contains(childNode)){
+                    childNode.setParent(node);
+                    childNode.setPathCost(newCost);
+                    frontier.add(childNode);
+                }
             }
         }
 

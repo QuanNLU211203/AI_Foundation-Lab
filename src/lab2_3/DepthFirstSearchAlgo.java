@@ -17,13 +17,13 @@ public class DepthFirstSearchAlgo implements ISearchAlgo{
             if(node.getLabel().equals(goal)){
                 return node;
             }
+            explored.add(node);
 
             List<Node> childs = node.getChildrenNodes();
             for(int i = childs.size() - 1; i >= 0; i--){
                 Node child = childs.get(i);
                 if(!explored.contains(child)){
                     child.setParent(node);
-                    explored.add(child);
                     frontier.add(child);
                 }
             }

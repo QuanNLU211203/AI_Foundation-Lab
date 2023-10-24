@@ -17,11 +17,11 @@ public class BreadthFirstSearchAlgo implements ISearchAlgo{
             if(node.getLabel().equals(goal)){
                 return node;
             }
+            explored.add(node);
 
             for(Node child : node.getChildrenNodes()){
                 if(!explored.contains(child)){
                     child.setParent(node);
-                    explored.add(child);
                     frontier.add(child);
                 }
             }
