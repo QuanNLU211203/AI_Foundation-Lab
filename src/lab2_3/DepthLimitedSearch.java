@@ -18,10 +18,13 @@ public class DepthLimitedSearch implements ISearchAlgo{
 
     @Override
     public Node execute(Node root, String goal) {
+        root.setPathCost(0);
+        root.setParent(null);
+        root.setDepth(0);
+
         Stack<Node> frontier = new Stack<Node>();
         Set<Node> explored = new HashSet<Node>();
         frontier.add(root);
-        root.setDepth(0);
 
         while(!frontier.isEmpty()){
             Node node = frontier.pop();
@@ -52,7 +55,6 @@ public class DepthLimitedSearch implements ISearchAlgo{
         setDepth(Integer.MAX_VALUE);
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             setDepth(depth);
             return execute(startNode, goal);
         }

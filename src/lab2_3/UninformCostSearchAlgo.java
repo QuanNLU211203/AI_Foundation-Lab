@@ -6,20 +6,10 @@ import java.util.PriorityQueue;
 public class UninformCostSearchAlgo implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
-        Comparator<Node> comparator = new Comparator<Node>() {
-            @Override
-            public int compare(Node o1, Node o2) {
-                double result = o1.getPathCost() - o2.getPathCost();
-                if(result == 0){
-                    return o1.compareTo(o2);
-                }
-                else{
-                    return (result > 0) ? (1):(-1);
-                }
-            }
-        };
-        PriorityQueue<Node> frontier = new PriorityQueue<Node>(comparator);
         root.setPathCost(0);
+        root.setParent(null);
+        Comparator<Node> comparator = new NodeComparatorFactory().getPathCostComparator();
+        PriorityQueue<Node> frontier = new PriorityQueue<Node>(comparator);
         frontier.add(root);
 
         while(!frontier.isEmpty()){
@@ -49,7 +39,6 @@ public class UninformCostSearchAlgo implements ISearchAlgo{
     public Node execute(Node root, String start, String goal) {
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             return execute(startNode, goal);
         }
 

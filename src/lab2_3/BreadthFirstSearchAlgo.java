@@ -8,6 +8,9 @@ import java.util.Set;
 public class BreadthFirstSearchAlgo implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
+        root.setPathCost(0);
+        root.setParent(null);
+
         Queue<Node> frontier = new LinkedList<Node>();
         Set<Node> explored = new HashSet<Node>();
         frontier.add(root);
@@ -34,7 +37,6 @@ public class BreadthFirstSearchAlgo implements ISearchAlgo{
     public Node execute(Node root, String start, String goal) {
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             return execute(startNode, goal);
         }
 

@@ -7,6 +7,9 @@ public class DFSTreeSearch implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
         try{
+            root.setPathCost(0);
+            root.setParent(null);
+
             Stack<Node> frontier = new Stack<Node>();
             frontier.add(root);
 
@@ -36,7 +39,6 @@ public class DFSTreeSearch implements ISearchAlgo{
     public Node execute(Node root, String start, String goal) {
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             return execute(startNode, goal);
         }
 

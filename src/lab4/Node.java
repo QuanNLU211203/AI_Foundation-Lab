@@ -72,6 +72,10 @@ public class Node {
 		this.h = h;
 	}
 
+	public double getF(){
+		return getG() + getH();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,6 +103,6 @@ public class Node {
 
 	@Override
 	public String toString() {
-		return this.label;
+		return this.label + ": " + getF();
 	}
 }

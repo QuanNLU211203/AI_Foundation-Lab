@@ -7,6 +7,9 @@ public class BFSTreeSearch implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
         try{
+            root.setPathCost(0);
+            root.setParent(null);
+
             Queue<Node> frontier = new LinkedList<Node>();
             frontier.add(root);
 
@@ -35,7 +38,6 @@ public class BFSTreeSearch implements ISearchAlgo{
     public Node execute(Node root, String start, String goal) {
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             return execute(startNode, goal);
         }
 

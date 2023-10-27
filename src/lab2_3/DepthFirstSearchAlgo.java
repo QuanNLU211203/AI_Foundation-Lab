@@ -8,6 +8,9 @@ import java.util.Stack;
 public class DepthFirstSearchAlgo implements ISearchAlgo{
     @Override
     public Node execute(Node root, String goal) {
+        root.setPathCost(0);
+        root.setParent(null);
+
         Stack<Node> frontier = new Stack<Node>();
         Set<Node> explored = new HashSet<Node>();
         frontier.add(root);
@@ -36,7 +39,6 @@ public class DepthFirstSearchAlgo implements ISearchAlgo{
     public Node execute(Node root, String start, String goal) {
         Node startNode = execute(root, start);
         if(startNode != null){
-            startNode.setParent(null);
             return execute(startNode, goal);
         }
 
