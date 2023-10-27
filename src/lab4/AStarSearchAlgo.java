@@ -17,6 +17,7 @@ public class AStarSearchAlgo implements IInformedSearchAlgo{
         frontier.add(root);
 
         while (!frontier.isEmpty()) {
+            System.out.println(frontier);
             Node node = frontier.poll();
             if (node.getLabel().equals(goal)) {
                 return node;
@@ -43,7 +44,7 @@ public class AStarSearchAlgo implements IInformedSearchAlgo{
                         shouldAddToFrontier = true;
                     }
                 }
-                else if(!inExplored){
+                else if(!inExplored && !inFrontier){
                     //Đây là TH child chưa được xét qua
                     shouldAddToFrontier = true;
                 }

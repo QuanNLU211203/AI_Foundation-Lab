@@ -2,7 +2,7 @@ package lab4;
 
 public class TestAStar {
 	public static void main(String[] args) {
-		Node s = createTestSet3();
+		Node s = createTestSet1();
 
 		IInformedSearchAlgo aStar = new AStarSearchAlgo();
 		Node res = aStar.execute(s, "G");
@@ -23,7 +23,7 @@ public class TestAStar {
 		s.addEdge(a, 2);
 		a.addEdge(c, 3);
 		b.addEdge(d, 3);
-		b.addEdge(c, 1);
+		b.addEdge(c, 4); //1
 		c.addEdge(e, 3);
 		c.addEdge(d, 1);
 		d.addEdge(f, 2);
