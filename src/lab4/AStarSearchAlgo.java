@@ -2,7 +2,10 @@ package lab4;
 
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public class AStarSearchAlgo implements IInformedSearchAlgo{
@@ -65,16 +68,53 @@ public class AStarSearchAlgo implements IInformedSearchAlgo{
 
     @Override
     public Node execute(Node root, String start, String goal) {
+        Node s = execute(root, start);
+        if(start != null){
+            return execute(s, goal);
+        }
         return null;
     }
 
+    // Lấy mọi Node có thể duyệt qua được từ root (Dùng BFS)
+    private List<Node> getAllReachableNode(Node root){
+        Queue<Node> queue = new LinkedList<>();
+        Set<Node> explored = new HashSet<>();
+
+        queue.add(root);
+        while (!queue.isEmpty()){
+            Node node = queue.poll();
+            explored.add(node);
+
+            for(Node child : node.getChildrenNodes()){
+                if(!explored.contains(child)){
+                    queue.add(child);
+                }
+            }
+        }
+
+        return explored.stream().toList();
+    }
+
     public boolean isAdmissibleH(Node root, String goal){
-        double trueCost = new UninformCostSearchAlgo().execute(root, goal).getG();
-        if(trueCost >= root.getH()){
-            return true;
+        // h(n) được coi là admissible nếu:
+        // Với mọi n, h(n) <= h*(n)
+        // Vậy nên để kiểm chứng h(n) là admissble
+        // thì phải lấy mọi Node trong graph (hoặc ít nhất là các Node có thể duyệt qua được)
+        List<Node> nodes = getAllReachableNode(root);
+
+        // Sử dụng Uninform bởi nó đảm bảo tính completeness và optimally
+        UninformCostSearchAlgo searcher = new UninformCostSearchAlgo();
+        for(Node node : nodes){
+            Node goalNode = searcher.execute(node, goal);
+//            System.out.println(
+//                    "Node: " + node.getLabel() +
+//                    ", Cost: " + goalNode.getG() +
+//                            ", H:" + node.getH());
+            if(goalNode != null && goalNode.getG() < node.getH()){
+                return false;
+            }
         }
-        else{
-            return false;
-        }
+
+        return true;
     }
 }

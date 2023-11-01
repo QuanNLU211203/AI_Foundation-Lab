@@ -4,9 +4,8 @@ public class TestAStar {
 	public static void main(String[] args) {
 		Node s = createTestSet1();
 
-		IInformedSearchAlgo aStar = new AStarSearchAlgo();
-		Node res = aStar.execute(s, "G");
-		System.out.println(NodeUtils.printPath(res));
+		AStarSearchAlgo aStar = new AStarSearchAlgo();
+		System.out.println(aStar.isAdmissibleH(s, "G"));
 	}
 
 	public static Node createTestSet1(){
@@ -23,7 +22,7 @@ public class TestAStar {
 		s.addEdge(a, 2);
 		a.addEdge(c, 3);
 		b.addEdge(d, 3);
-		b.addEdge(c, 4); //1
+		b.addEdge(c, 1);
 		c.addEdge(e, 3);
 		c.addEdge(d, 1);
 		d.addEdge(f, 2);
