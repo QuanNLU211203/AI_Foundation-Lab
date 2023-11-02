@@ -2,36 +2,27 @@ package lab5;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class TestNode {
 
 	public static void main(String[] args) {
 		Puzzle p = new Puzzle();
-		p.readInput("txt/PuzzleMap.txt", "txt/PuzzleGoalState.txt");
+		p.readInput("src/lab5/asset/PuzzleMap.txt",
+				"src/lab5/asset/PuzzleGoalState.txt");
+		IPuzzleAlgo solver = new GreedyBestFirstSearch();
+		Node goalNode = solver.execute(p);
 
-		Node initialState = p.getInitialState();
-		Node tmp = new Node(initialState);
-		System.out.println(initialState.equals(tmp));
-//		Node goalState = p.getGoalState();
-//		System.out.println(p.getInitialState());
-		System.out.println("H: "+initialState.getH());
-//		System.out.println(Arrays.toString(initialState.getWhiteTilePosition()));
-//		System.out.println(p.getGoalState());
-		Node re = p.moveWhiteTile(initialState, 'r');
-//
-		System.out.println(re);
-		System.out.println(re.getH());
-		System.out.println(initialState);
-//		System.out.println(Arrays.toString(re.getWhiteTilePosition()));
-//		System.out.println(p.computeH(init, goal));
+		Stack<Node> stack = new Stack<>();
+		Node trace = goalNode;
+		while(trace != null){
+			stack.add(trace);
+			trace = trace.getParent();
+		}
 
-		// System.out.println(p.getInitialState());
-		// System.out.println(p.getGoalState());
-		//
-		// List<Node> children = p.getSuccessors(initialState);
-		// System.out.println("Size: "+children.size());
-		// for (Node child : children) {
-		// System.out.println(child.getH()+" "+p.computeH(child) );
-		// }
+
+		while (!stack.isEmpty()){
+			System.out.println(stack.pop());
+		}
 	}
 }

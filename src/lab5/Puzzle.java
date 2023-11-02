@@ -12,7 +12,6 @@ public class Puzzle {
 	public static final int MAX_ROW = 3;// 3x3: Dimension of the puzzle map
 	public static final int MAX_COL = 3;
 	public static final char[] operators = { 'l', 'r', 'u', 'd' };
-
 	private Node initialState;
 	private Node goalState;
 
@@ -63,6 +62,15 @@ public class Puzzle {
 	public int computeH1(Node currentState) {
 		int output = 0;
 		/* Enter your code here */
+		for(int row = 0; row < currentState.getRow(); row++){
+			for(int col = 0; col < currentState.getColumn(); col++){
+				//Xét điều kiện != 0 cho chuẩn, trên thực tế không cần phải xét như vậy
+				if(currentState.getTile(row, col) != 0
+				&& currentState.getTile(row, col) == goalState.getTile(row, col)){
+					output++;
+				}
+			}
+		}
 		return output;
 	}
 
@@ -70,6 +78,9 @@ public class Puzzle {
 	public int computeH2(Node currentState) {
 		int result = 0;
 		/* Enter your code here */
+		for (int tile = 1; tile < MAX_COL * MAX_ROW; tile++){
+			result += PuzzleUtils.manhattanDistance(currentState.getLocation(tile), goalState.getLocation(tile));
+		}
 		return result;
 	}
 
@@ -77,32 +88,31 @@ public class Puzzle {
 	public Node moveWhiteTile(Node currentState, char operator) {
 		Node result = new Node(currentState);
 		int[] whiteTile = currentState.getLocation(0);//get white tile
-		if (operator == 'u') {// Case-1: Move tile UP
-			// New postion of tile if move UP
-			int row = whiteTile[0] - 1;
-			int col = whiteTile[1];
-			if (row >= 0) {// Tile stands inside the map
-				int tmp = currentState.getTile(row, col);
-				result.updateTile(row, col, 0);
-				result.updateTile(whiteTile[0], whiteTile[1], tmp);
-				result.setH(computeH2(result));
-				return result;
-			}
+		int row = whiteTile[0];
+		int col = whiteTile[1];
+		switch (operator){
+			case 'u':
+				row--;
+				break;
+			case 'd':
+				row++;
+				break;
+			case 'l':
+				col--;
+				break;
+			case 'r':
+				col++;
+				break;
+			default:
+				System.out.println("DEBUG activated!");
 		}
 
-		else if (operator == 'd') {// Case-2: Move tile DOWN
-			/* Enter your code here */
-
-		}
-
-		else if (operator == 'l') {// Case-3: Move tile LEFT
-			/* Enter your code here */
-
-		}
-
-		else if (operator == 'r') {// Case-4: Move tile RIGHT
-			/* Enter your code here */
-
+		if(0 <= row && row < MAX_ROW && 0 <= col && col < MAX_COL){
+			int tmp = currentState.getTile(row, col);
+			result.updateTile(row, col, 0);
+			result.updateTile(whiteTile[0], whiteTile[1], tmp);
+			result.setH(computeH2(result)); //hoặc computeH1
+			return result;
 		}
 		return null;
 	}
@@ -118,6 +128,10 @@ public class Puzzle {
 		}
 
 		return result;
+	}
+
+	public void setInitialState(Node initialState) {
+		this.initialState = initialState;
 	}
 
 	public Node getInitialState() {

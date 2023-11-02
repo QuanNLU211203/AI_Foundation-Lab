@@ -3,6 +3,7 @@ package lab5;
 import java.util.Arrays;
 
 public class Node {
+	private Node parent;
 	private int[][] state;
 	private int h;
 	private int g;
@@ -19,6 +20,18 @@ public class Node {
 				state[i][j] = node.state[i][j];
 			}
 		}
+	}
+
+	public Node(int[][] state){
+		this.state = state;
+	}
+
+	public void setParent(Node parent){
+		this.parent = parent;
+	}
+
+	public Node getParent(){
+		return this.parent;
 	}
 
 	public int getG() {
@@ -84,6 +97,20 @@ public class Node {
 	}
 
 	@Override
+	public int hashCode() {
+		int result = 0;
+		int ten = 1;
+		for (int i = 0; i < state.length; i++) {
+			for (int j = 0; j < state[i].length; j++) {
+				result += state[i][j] * ten;
+				ten *= 10;
+			}
+		}
+
+		return result;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder output = new StringBuilder();
 		for (int i = 0; i < state.length; i++) {
@@ -95,5 +122,4 @@ public class Node {
 
 		return output.toString();
 	}
-
 }
