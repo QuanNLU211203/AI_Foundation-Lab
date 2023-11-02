@@ -11,32 +11,28 @@ public class HillClimbing extends AbstractSearch{
 
     @Override
     public Node execute(Puzzle model) {
-        PriorityQueue<Node> frontier = new PriorityQueue<Node>(PuzzleUtils.HeuristicComparatorByH);
-        Set<Node> explored = new HashSet<>();
+        Node currentNode = model.getInitialState();
 
         model.getInitialState().setParent(null);
         model.getInitialState().setG(0);
-        frontier.add(model.getInitialState());
 
-        while (!frontier.isEmpty()){
-            Node currentState = frontier.poll();
-            if(currentState.equals(model.getGoalState())){
-                return currentState;
+        while (currentNode != null){
+            if(currentNode.equals(model.getGoalState())){
+                return currentNode;
             }
-            explored.add(currentState);
 
-            Node goodNode = null;
-            for(Node successor : model.getSuccessors(currentState)){
-                if(!explored.contains(successor) && !frontier.contains(successor)){
-                    if(goodNode == null || goodNode.getH() > successor.getH()){
-                        successor.setG(currentState.getG() + 1); // Set G
-                        successor.setParent(currentState); //Dùng cho việc truy vết
-                        goodNode = successor;
-                    }
+            Node parent = currentNode;
+            boolean canMove = false;
+            for(Node successor : model.getSuccessors(currentNode)){
+                if(currentNode.getH() > successor.getH()){
+                    successor.setG(parent.getG() + 1); // Set G
+                    successor.setParent(parent); //Dùng cho việc truy vết
+                    currentNode = successor;
+                    canMove = true;
                 }
             }
-            if(goodNode != null && currentState.getH() > goodNode.getH()){
-                frontier.add(goodNode);
+            if(!canMove){
+                return null;
             }
         }
 
