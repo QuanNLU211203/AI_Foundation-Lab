@@ -1,4 +1,4 @@
-package lab6.sa;
+package lab6_7.sa;
 
 //https://www.baeldung.com/java-simulated-annealing-for-traveling-salesman
 //other: http://www.theprojectspot.com/tutorial-post/simulated-annealing-algorithm-for-beginners/6

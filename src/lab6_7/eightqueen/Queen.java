@@ -1,4 +1,4 @@
-package lab6.eightqueen;
+package lab6_7.eightqueen;
 
 public class Queen implements Cloneable{
 	private int row;

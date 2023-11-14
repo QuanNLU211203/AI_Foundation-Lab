@@ -1,4 +1,4 @@
-package lab6.eightqueen;
+package lab6_7.eightqueen;
 
 public class SimulatedAnnealing {
     public Node execute(Node initialState, double temperature, double rate){
@@ -8,7 +8,6 @@ public class SimulatedAnnealing {
             temperature *= rate;
             Node nextState = currentState.selectNextRandomCandidate();
             if(nextState.getH() == 0){
-                System.out.println("OK");
                 return nextState;
             }
 

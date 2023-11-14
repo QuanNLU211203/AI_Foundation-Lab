@@ -1,4 +1,4 @@
-package lab6.eightqueen;
+package lab6_7.eightqueen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,11 @@ public class Node implements Cloneable{
 	public static final int N = 8;
 	private Queen[] state;
 
-	public Node() {
+	public Node(boolean randomState) {
 		state = new Queen[N];
-		generateBoard();
+		if(randomState){
+			generateBoard();
+		}
 	}
 
 	public Node(Queen[] state) {
@@ -24,7 +26,12 @@ public class Node implements Cloneable{
 		this.state = new Queen[N];
 		for (int i = 0; i < N; i++) {
 			Queen qi = n.state[i];
-			this.state[i] = qi.clone();
+			if(qi == null){
+				this.state[i] = null;
+			}
+			else{
+				this.state[i] = qi.clone();
+			}
 		}
 	}
 
@@ -40,7 +47,7 @@ public class Node implements Cloneable{
 		for(int i = 0; i < N - 1; i++){
 			for(int j = i + 1; j < N; j++){
 				if(state[i].isConflict(state[j])){
-					heuristic += 2;
+					heuristic += 1;
 				}
 			}
 		}
@@ -65,8 +72,14 @@ public class Node implements Cloneable{
 		int queenIndex = new Random().nextInt(N);
 		int queenRow = new Random().nextInt(N);
 		Node newNode = this.clone();
-		newNode.state[queenIndex].move();
+		newNode.state[queenIndex].setRow(queenRow);
 		return newNode;
+	}
+
+	public void mutate(){
+		int queenIndex = new Random().nextInt(N);
+		int queenRow = new Random().nextInt(N);
+		state[queenIndex].setRow(queenRow);
 	}
 
 	public void displayBoard() {
@@ -88,17 +101,16 @@ public class Node implements Cloneable{
 		}
 	}
 
+	public void setQueen(int col, Queen q){
+		state[col] = q;
+	}
+
+	public Queen getQueen(int col){
+		return state[col];
+	}
+
 	@Override
 	public Node clone(){
 		return new Node(this);
 	}
-
-//	@Override
-//	public int hashCode() {
-//		String hashString = "";
-//		for(Queen queen : state){
-//			hashString += queen.getRow();
-//		}
-//		return Integer.parseInt(hashString);
-//	}
 }

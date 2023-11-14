@@ -1,14 +1,10 @@
-package lab6.eightqueen;
-
-import java.util.HashSet;
-import java.util.Set;
+package lab6_7.eightqueen;
 
 public class HillClimbingSearch {
     private int stepClimbed;
 
     public Node execute(Node initialState) {
         stepClimbed = 0;
-        // Enter your code here.
         Node currentState = initialState;
         while (currentState != null){
             if(currentState.getH() == 0){
