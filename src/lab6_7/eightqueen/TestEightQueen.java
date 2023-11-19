@@ -8,13 +8,10 @@ public class TestEightQueen {
         geneticAlgorithm.initPopulation();
 
         int count = 0;
-        for(int i = 0; i < 100; i++){
-//            Node node = simulatedAnnealing.execute(new Node(true), 1000, 0.999);
-//            Node node = hillClimbing.executeHillClimbingWithRandomRestart(new Node(true));
+        for(int i = 0; i < 1; i++){
             Node node = geneticAlgorithm.execute();
             if(node.getH() == 0){
                 count++;
-                System.out.println("OK");
             }
             geneticAlgorithm.initPopulation();
         }

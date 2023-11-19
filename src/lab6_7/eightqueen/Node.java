@@ -113,4 +113,9 @@ public class Node implements Cloneable{
 	public Node clone(){
 		return new Node(this);
 	}
+
+	@Override
+	public String toString(){
+		return "" + getH();
+	}
 }
